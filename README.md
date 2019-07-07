@@ -1,0 +1,2 @@
+# semer
+Scrum Event ManagER
