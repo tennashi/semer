@@ -2,4 +2,7 @@ module github.com/tennashi/semer
 
 go 1.12
 
-require github.com/go-chi/chi v4.0.2+incompatible
+require (
+	github.com/golang/protobuf v1.3.1
+	google.golang.org/grpc v1.22.0
+)

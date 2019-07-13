@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package services.scrum_team.v1;
+
+option go_package = "services/scrum_team/v1;scrum_team";
+
+service ScrumTeam {
+  rpc FindTeamByID(FindTeamByIDRequest) returns (FindTeamByIDResponse) {}
+}
+
+message FindTeamByIDRequest { uint64 team_id = 1; }
+message FindTeamByIDResponse { string res = 1; }
