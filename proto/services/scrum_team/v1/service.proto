@@ -8,5 +8,10 @@ service ScrumTeam {
   rpc FindTeamByID(FindTeamByIDRequest) returns (FindTeamByIDResponse) {}
 }
 
-message FindTeamByIDRequest { uint64 team_id = 1; }
-message FindTeamByIDResponse { string res = 1; }
+message FindTeamByIDRequest {
+  uint64 team_id = 1;
+}
+
+message FindTeamByIDResponse {
+  string res = 1;
+}
