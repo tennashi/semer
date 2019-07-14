@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package services.scrum_team.v1;
 
-option go_package = "services/scrum_team/v1;scrum_team";
+option go_package = "github.com/tennashi/semer/proto/gen/services/scrum_team/v1;scrum_team";
+
+import "proto/data/v1/scrum_team.proto";
 
 service ScrumTeam {
   rpc FindTeamByID(FindTeamByIDRequest) returns (FindTeamByIDResponse) {}
@@ -13,5 +15,5 @@ message FindTeamByIDRequest {
 }
 
 message FindTeamByIDResponse {
-  string res = 1;
+  data.v1.ScrumTeam team = 1;
 }

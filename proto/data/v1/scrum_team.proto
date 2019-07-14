@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package data.v1;
+
+import "proto/data/v1/user.proto";
+
+option go_package = "github.com/tennashi/semer/proto/gen/data/v1;data";
+
+message ScrumTeam {
+  uint64   id                = 1;
+  repeated User dev_team     = 2;
+  User          prod_owner   = 3;
+  User          scrum_master = 4;
+}

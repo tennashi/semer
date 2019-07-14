@@ -11,6 +11,6 @@ fmt-proto:
 	echo $(PROTO_FILES) | xargs clang-format-8 -i
 
 proto/gen/%.pb.go: proto/%.proto
-	protoc -I ./proto $< --go_out=plugins=grpc:./proto/gen
+	protoc -I . $< --go_out=plugins=grpc:$(GOPATH)/src
 
 .PHONY: gen-proto

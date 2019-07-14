@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package data.v1;
+
+option go_package = "github.com/tennashi/semer/proto/gen/data/v1;data";
+
+message User {
+  uint64 id = 1;
+}
