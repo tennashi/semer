@@ -3,7 +3,7 @@ PROTO_GEN_DIR := proto/gen/
 GO_OUT := $(patsubst ./proto/%.proto,./proto/gen/%.pb.go,$(PROTO_FILES))
 
 setup-lint:
-	go get -u golang.org/x/lin/golint
+	go get -u golang.org/x/lint/golint
 	go get -u golang.org/x/tools/cmd/goimports
 
 lint:
