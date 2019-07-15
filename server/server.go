@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+// Run initialize and execute the gRPC server.
 func Run() int {
 	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {

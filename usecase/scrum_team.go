@@ -2,6 +2,7 @@ package usecase
 
 import "github.com/tennashi/semer/domain"
 
+// FindTeamByID returns the scrum team.
 func FindTeamByID(teamID uint64) (*domain.ScrumTeam, error) {
 	team := &domain.ScrumTeam{
 		ID:          teamID,

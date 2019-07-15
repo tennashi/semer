@@ -11,6 +11,7 @@ import (
 type scrumTeam struct {
 }
 
+// NewScrumTeamServer returns the ScrumTeamServer interface.
 func NewScrumTeamServer() scrum_team.ScrumTeamServer {
 	return &scrumTeam{}
 }
