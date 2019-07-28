@@ -1,4 +1,4 @@
-package persistence
+package infra
 
 import (
 	"database/sql"

@@ -7,3 +7,7 @@ type ScrumTeam struct {
 	ProdOwner   *User
 	ScrumMaster *User
 }
+
+type ScrumTeamRepository interface {
+	FindByID(teamID uint64) (*ScrumTeam, error)
+}
