@@ -6,11 +6,9 @@ package scrum_team
 import (
 	context "context"
 	fmt "fmt"
-	math "math"
-
 	proto "github.com/golang/protobuf/proto"
-	v1 "github.com/tennashi/semer/proto/gen/data/v1"
 	grpc "google.golang.org/grpc"
+	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -24,6 +22,108 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type ScrumTeam struct {
+	Id                   uint64            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	DevTeam              []*ScrumTeam_User `protobuf:"bytes,2,rep,name=dev_team,json=devTeam,proto3" json:"dev_team,omitempty"`
+	ProdOwner            *ScrumTeam_User   `protobuf:"bytes,3,opt,name=prod_owner,json=prodOwner,proto3" json:"prod_owner,omitempty"`
+	ScrumMaster          *ScrumTeam_User   `protobuf:"bytes,4,opt,name=scrum_master,json=scrumMaster,proto3" json:"scrum_master,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *ScrumTeam) Reset()         { *m = ScrumTeam{} }
+func (m *ScrumTeam) String() string { return proto.CompactTextString(m) }
+func (*ScrumTeam) ProtoMessage()    {}
+func (*ScrumTeam) Descriptor() ([]byte, []int) {
+	return fileDescriptor_936823affc3a32fb, []int{0}
+}
+
+func (m *ScrumTeam) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ScrumTeam.Unmarshal(m, b)
+}
+func (m *ScrumTeam) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ScrumTeam.Marshal(b, m, deterministic)
+}
+func (m *ScrumTeam) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ScrumTeam.Merge(m, src)
+}
+func (m *ScrumTeam) XXX_Size() int {
+	return xxx_messageInfo_ScrumTeam.Size(m)
+}
+func (m *ScrumTeam) XXX_DiscardUnknown() {
+	xxx_messageInfo_ScrumTeam.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ScrumTeam proto.InternalMessageInfo
+
+func (m *ScrumTeam) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *ScrumTeam) GetDevTeam() []*ScrumTeam_User {
+	if m != nil {
+		return m.DevTeam
+	}
+	return nil
+}
+
+func (m *ScrumTeam) GetProdOwner() *ScrumTeam_User {
+	if m != nil {
+		return m.ProdOwner
+	}
+	return nil
+}
+
+func (m *ScrumTeam) GetScrumMaster() *ScrumTeam_User {
+	if m != nil {
+		return m.ScrumMaster
+	}
+	return nil
+}
+
+type ScrumTeam_User struct {
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ScrumTeam_User) Reset()         { *m = ScrumTeam_User{} }
+func (m *ScrumTeam_User) String() string { return proto.CompactTextString(m) }
+func (*ScrumTeam_User) ProtoMessage()    {}
+func (*ScrumTeam_User) Descriptor() ([]byte, []int) {
+	return fileDescriptor_936823affc3a32fb, []int{0, 0}
+}
+
+func (m *ScrumTeam_User) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ScrumTeam_User.Unmarshal(m, b)
+}
+func (m *ScrumTeam_User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ScrumTeam_User.Marshal(b, m, deterministic)
+}
+func (m *ScrumTeam_User) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ScrumTeam_User.Merge(m, src)
+}
+func (m *ScrumTeam_User) XXX_Size() int {
+	return xxx_messageInfo_ScrumTeam_User.Size(m)
+}
+func (m *ScrumTeam_User) XXX_DiscardUnknown() {
+	xxx_messageInfo_ScrumTeam_User.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ScrumTeam_User proto.InternalMessageInfo
+
+func (m *ScrumTeam_User) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
 type FindTeamByIDRequest struct {
 	TeamId               uint64   `protobuf:"varint,1,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -35,7 +135,7 @@ func (m *FindTeamByIDRequest) Reset()         { *m = FindTeamByIDRequest{} }
 func (m *FindTeamByIDRequest) String() string { return proto.CompactTextString(m) }
 func (*FindTeamByIDRequest) ProtoMessage()    {}
 func (*FindTeamByIDRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_936823affc3a32fb, []int{0}
+	return fileDescriptor_936823affc3a32fb, []int{1}
 }
 
 func (m *FindTeamByIDRequest) XXX_Unmarshal(b []byte) error {
@@ -64,17 +164,17 @@ func (m *FindTeamByIDRequest) GetTeamId() uint64 {
 }
 
 type FindTeamByIDResponse struct {
-	Team                 *v1.ScrumTeam `protobuf:"bytes,1,opt,name=team,proto3" json:"team,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_unrecognized     []byte        `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	Team                 *ScrumTeam `protobuf:"bytes,1,opt,name=team,proto3" json:"team,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
 }
 
 func (m *FindTeamByIDResponse) Reset()         { *m = FindTeamByIDResponse{} }
 func (m *FindTeamByIDResponse) String() string { return proto.CompactTextString(m) }
 func (*FindTeamByIDResponse) ProtoMessage()    {}
 func (*FindTeamByIDResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_936823affc3a32fb, []int{1}
+	return fileDescriptor_936823affc3a32fb, []int{2}
 }
 
 func (m *FindTeamByIDResponse) XXX_Unmarshal(b []byte) error {
@@ -95,7 +195,7 @@ func (m *FindTeamByIDResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_FindTeamByIDResponse proto.InternalMessageInfo
 
-func (m *FindTeamByIDResponse) GetTeam() *v1.ScrumTeam {
+func (m *FindTeamByIDResponse) GetTeam() *ScrumTeam {
 	if m != nil {
 		return m.Team
 	}
@@ -103,6 +203,8 @@ func (m *FindTeamByIDResponse) GetTeam() *v1.ScrumTeam {
 }
 
 func init() {
+	proto.RegisterType((*ScrumTeam)(nil), "services.scrum_team.v1.ScrumTeam")
+	proto.RegisterType((*ScrumTeam_User)(nil), "services.scrum_team.v1.ScrumTeam.User")
 	proto.RegisterType((*FindTeamByIDRequest)(nil), "services.scrum_team.v1.FindTeamByIDRequest")
 	proto.RegisterType((*FindTeamByIDResponse)(nil), "services.scrum_team.v1.FindTeamByIDResponse")
 }
@@ -112,22 +214,28 @@ func init() {
 }
 
 var fileDescriptor_936823affc3a32fb = []byte{
-	// 240 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xd2, 0x2a, 0x28, 0xca, 0x2f,
-	0xc9, 0xd7, 0x2f, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0x2d, 0xd6, 0x2f, 0x4e, 0x2e, 0x2a, 0xcd,
-	0x8d, 0x2f, 0x49, 0x4d, 0xcc, 0xd5, 0x2f, 0x33, 0x84, 0x09, 0xeb, 0x81, 0x15, 0x09, 0x89, 0xc1,
-	0x54, 0xe9, 0x21, 0x54, 0xe9, 0x95, 0x19, 0x4a, 0xc9, 0x41, 0xcc, 0x48, 0x49, 0x2c, 0x49, 0x04,
-	0x6b, 0x42, 0x48, 0x82, 0x25, 0x94, 0xf4, 0xb8, 0x84, 0xdd, 0x32, 0xf3, 0x52, 0x42, 0x52, 0x13,
-	0x73, 0x9d, 0x2a, 0x3d, 0x5d, 0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0xc4, 0xb9, 0xd8,
-	0x41, 0x8a, 0xe2, 0x33, 0x53, 0x24, 0x18, 0x15, 0x18, 0x35, 0x58, 0x82, 0xd8, 0x40, 0x5c, 0xcf,
-	0x14, 0x25, 0x3b, 0x2e, 0x11, 0x54, 0xf5, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9, 0x42, 0x6a, 0x5c,
-	0x2c, 0x20, 0x15, 0x60, 0xd5, 0xdc, 0x46, 0x42, 0x7a, 0x20, 0x0b, 0xf5, 0xca, 0x0c, 0xf5, 0x82,
-	0x41, 0x16, 0x82, 0x54, 0x07, 0x81, 0xe5, 0x8d, 0x2a, 0xb8, 0x38, 0xe1, 0x42, 0x42, 0xd9, 0x5c,
-	0x3c, 0xc8, 0x86, 0x09, 0x69, 0xeb, 0x61, 0xf7, 0x85, 0x1e, 0x16, 0x27, 0x4a, 0xe9, 0x10, 0xa7,
-	0x18, 0xe2, 0x3e, 0x25, 0x06, 0x27, 0xf7, 0x28, 0xd7, 0xf4, 0xcc, 0x92, 0x8c, 0xd2, 0x24, 0xbd,
-	0xe4, 0xfc, 0x5c, 0xfd, 0x92, 0xd4, 0xbc, 0xbc, 0xc4, 0xe2, 0x8c, 0x4c, 0xfd, 0xe2, 0xd4, 0xdc,
-	0xd4, 0x22, 0x7d, 0x48, 0x28, 0xa5, 0xa7, 0xe6, 0xe1, 0x08, 0x6d, 0x6b, 0x04, 0x2f, 0x89, 0x0d,
-	0xac, 0xd8, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xd5, 0x62, 0x85, 0x49, 0x9f, 0x01, 0x00, 0x00,
+	// 321 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x92, 0xc1, 0x4b, 0x02, 0x41,
+	0x14, 0xc6, 0xdb, 0x75, 0xd1, 0x7c, 0x4a, 0xc4, 0x14, 0xb6, 0x78, 0xb2, 0x3d, 0x84, 0x54, 0xcc,
+	0xa2, 0xd1, 0xa9, 0x53, 0x92, 0x85, 0x07, 0x09, 0xb6, 0xba, 0x74, 0x91, 0xd5, 0x79, 0xe8, 0x12,
+	0x33, 0x63, 0x33, 0xe3, 0x46, 0xa7, 0xae, 0xfd, 0xd9, 0x31, 0x23, 0x6a, 0x85, 0x52, 0x1e, 0xdf,
+	0x37, 0xbf, 0xef, 0x9b, 0x6f, 0x86, 0x07, 0xa7, 0x53, 0x25, 0x8d, 0x8c, 0x35, 0xaa, 0x3c, 0x1b,
+	0xa1, 0x8e, 0xf5, 0x48, 0xcd, 0xf8, 0xc0, 0x60, 0xca, 0xe3, 0xbc, 0xb5, 0x90, 0xa9, 0x83, 0x48,
+	0x6d, 0x41, 0xd1, 0x15, 0x45, 0xf3, 0x56, 0xf4, 0xe9, 0x43, 0xf9, 0xc1, 0x2a, 0x8f, 0x98, 0x72,
+	0xb2, 0x07, 0x7e, 0xc6, 0x42, 0xaf, 0xe1, 0x35, 0x83, 0xc4, 0xcf, 0x18, 0xb9, 0x86, 0x5d, 0x86,
+	0xb9, 0x83, 0x43, 0xbf, 0x51, 0x68, 0x56, 0xda, 0x27, 0x74, 0x7d, 0x10, 0x5d, 0x86, 0xd0, 0x27,
+	0x8d, 0x2a, 0x29, 0x31, 0xcc, 0x5d, 0x64, 0x17, 0x60, 0xaa, 0x24, 0x1b, 0xc8, 0x37, 0x81, 0x2a,
+	0x2c, 0x34, 0xbc, 0x2d, 0x42, 0xca, 0xd6, 0x79, 0x6f, 0x8d, 0xa4, 0x07, 0xd5, 0x39, 0xca, 0x53,
+	0x6d, 0x50, 0x85, 0xc1, 0x56, 0x41, 0x15, 0x77, 0xda, 0x77, 0xd6, 0x7a, 0x0d, 0x02, 0x2b, 0xfe,
+	0x7e, 0x6c, 0x44, 0xe1, 0xe0, 0x36, 0x13, 0xcc, 0xba, 0x3a, 0xef, 0xbd, 0x9b, 0x04, 0x5f, 0x67,
+	0xa8, 0x0d, 0x39, 0x82, 0x92, 0x4d, 0x1d, 0x2c, 0xd9, 0xa2, 0x1d, 0x7b, 0x2c, 0xea, 0xc3, 0xe1,
+	0x4f, 0x5e, 0x4f, 0xa5, 0xd0, 0x48, 0x2e, 0x21, 0x70, 0x1f, 0xe6, 0xb9, 0x8a, 0xc7, 0x7f, 0x56,
+	0x4c, 0x1c, 0xde, 0xfe, 0x80, 0xfd, 0xa5, 0xd4, 0x4f, 0x45, 0x3a, 0x46, 0x45, 0x5e, 0xa0, 0xfa,
+	0xfd, 0x0a, 0x72, 0xb6, 0x29, 0x6c, 0x4d, 0xf1, 0xfa, 0xf9, 0xff, 0xe0, 0x79, 0xeb, 0x68, 0xa7,
+	0x73, 0xf7, 0xdc, 0x1d, 0x67, 0x66, 0x32, 0x1b, 0xd2, 0x91, 0xe4, 0xb1, 0x41, 0x21, 0x52, 0x3d,
+	0xc9, 0x62, 0x8d, 0x1c, 0x55, 0x3c, 0x5f, 0xb5, 0x31, 0x8a, 0x0d, 0xeb, 0x76, 0xb5, 0x9a, 0x86,
+	0x45, 0x07, 0x5f, 0x7c, 0x05, 0x00, 0x00, 0xff, 0xff, 0xc6, 0x0e, 0xc6, 0x1c, 0xa0, 0x02, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -138,64 +246,64 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// ScrumTeamClient is the client API for ScrumTeam service.
+// ScrumTeamManagerClient is the client API for ScrumTeamManager service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type ScrumTeamClient interface {
+type ScrumTeamManagerClient interface {
 	FindTeamByID(ctx context.Context, in *FindTeamByIDRequest, opts ...grpc.CallOption) (*FindTeamByIDResponse, error)
 }
 
-type scrumTeamClient struct {
+type scrumTeamManagerClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewScrumTeamClient(cc *grpc.ClientConn) ScrumTeamClient {
-	return &scrumTeamClient{cc}
+func NewScrumTeamManagerClient(cc *grpc.ClientConn) ScrumTeamManagerClient {
+	return &scrumTeamManagerClient{cc}
 }
 
-func (c *scrumTeamClient) FindTeamByID(ctx context.Context, in *FindTeamByIDRequest, opts ...grpc.CallOption) (*FindTeamByIDResponse, error) {
+func (c *scrumTeamManagerClient) FindTeamByID(ctx context.Context, in *FindTeamByIDRequest, opts ...grpc.CallOption) (*FindTeamByIDResponse, error) {
 	out := new(FindTeamByIDResponse)
-	err := c.cc.Invoke(ctx, "/services.scrum_team.v1.ScrumTeam/FindTeamByID", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/services.scrum_team.v1.ScrumTeamManager/FindTeamByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ScrumTeamServer is the server API for ScrumTeam service.
-type ScrumTeamServer interface {
+// ScrumTeamManagerServer is the server API for ScrumTeamManager service.
+type ScrumTeamManagerServer interface {
 	FindTeamByID(context.Context, *FindTeamByIDRequest) (*FindTeamByIDResponse, error)
 }
 
-func RegisterScrumTeamServer(s *grpc.Server, srv ScrumTeamServer) {
-	s.RegisterService(&_ScrumTeam_serviceDesc, srv)
+func RegisterScrumTeamManagerServer(s *grpc.Server, srv ScrumTeamManagerServer) {
+	s.RegisterService(&_ScrumTeamManager_serviceDesc, srv)
 }
 
-func _ScrumTeam_FindTeamByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ScrumTeamManager_FindTeamByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindTeamByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ScrumTeamServer).FindTeamByID(ctx, in)
+		return srv.(ScrumTeamManagerServer).FindTeamByID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/services.scrum_team.v1.ScrumTeam/FindTeamByID",
+		FullMethod: "/services.scrum_team.v1.ScrumTeamManager/FindTeamByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScrumTeamServer).FindTeamByID(ctx, req.(*FindTeamByIDRequest))
+		return srv.(ScrumTeamManagerServer).FindTeamByID(ctx, req.(*FindTeamByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _ScrumTeam_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "services.scrum_team.v1.ScrumTeam",
-	HandlerType: (*ScrumTeamServer)(nil),
+var _ScrumTeamManager_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "services.scrum_team.v1.ScrumTeamManager",
+	HandlerType: (*ScrumTeamManagerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "FindTeamByID",
-			Handler:    _ScrumTeam_FindTeamByID_Handler,
+			Handler:    _ScrumTeamManager_FindTeamByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
